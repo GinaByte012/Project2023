@@ -2,10 +2,14 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const app = express();
+app.use(express.static('public'));    // 정적 파일 서비스 허용
+var mysql = require('mysql');
+var db = require('../lib/db.js');
 
-app.use(bodyParser.urlencoded({ extended: false }));
 
 let isVerified = false;
+
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // 홈페이지를 보여주는 라우트
 app.get('/signup', (req, res) => {
@@ -15,14 +19,20 @@ app.get('/signup', (req, res) => {
       <label for="name">이름:</label>
       <input type="text" id="name" name="name"><br>
 
-      <label for="username">아이디:</label>
-      <input type="text" id="username" name="username"><br>
+      <label for="nickname">닉네임:</label>
+      <input type="text" id="nickname" name="nickname"><br>
 
-      <label for="password">비밀번호:</label>
-      <input type="password" id="password" name="password"><br>
+      <label for="id">아이디:</label>
+      <input type="text" id="id" name="id"><br>
+
+      <label for="passwd">비밀번호:</label>
+      <input type="passwd" id="password" name="password"><br>
+
+      <label for="birth">생년월일:</label>
+      <input type="text" id="birth" name="birth"><br>
 
       <label for="email">이메일:</label>
-      <input type="email" id="email" name="email">
+      <input type="text" id="email" name="email">
       <button type="button" onclick="sendVerificationEmail()">이메일 인증</button>
       <div id="verificationDiv" style="display: none;">
         <input type="text" id="verificationCode" placeholder="인증 코드">
@@ -94,12 +104,43 @@ const transporter = nodemailer.createTransport({
 });
 
 // 회원 가입 및 이메일 인증 라우트
-app.post('/register', (req, res) => {
-  const verifyStatus = req.query.verifyStatus;
+app.post('/register', function (req, res) {
+  // const verifyStatus = req.query.verifyStatus;
 
   if (isVerified) {
+
     // 본인 인증이 성공한 경우, 회원 가입 페이지 렌더링
     isVerified = false;
+    console.log("=============================================")
+    console.log("isverified change to false")
+
+
+    //
+    var body = '';
+    req.on('data', function (data) {
+      body = body + data;
+    })
+    console.log("=============================================")
+    console.log("req.name: ", req.name)
+    console.log("req.nickname: ", req.nickname)
+    console.log("req.id: ", req.id)
+    console.log("req.passwd: ", req.passwd)
+    console.log("req.birth: ", req.birth)
+    console.log("req.email: ", req.email)
+    console.log("=============================================")
+
+    req.on('end', function () {
+      var reg = qs.parse(body);
+      db.query(`INSERT INTO user (name, nickname, id, passwd, birth, email) VALUES(?, ?, ?, ?, ?, ?)`,
+        [reg.name, reg.nickname, reg.id, reg.passwd, reg.birth, reg.email], function (error, result) {
+          if (error) { throw error; }
+          response.writeHead(302, { Location: `../login` });
+          response.end();
+        }
+      )
+    });
+    //
+
     res.send(`
       <>
       <script>
@@ -108,7 +149,7 @@ app.post('/register', (req, res) => {
       </script>
       `
     );
-  } 
+  }
 });
 
 
@@ -127,9 +168,9 @@ app.get('/send-verification-email', (req, res) => {
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        res.json({ success: false });
-        console.error('이메일 보내기 실패:', error);
+    if (error) {
+      res.json({ success: false });
+      console.error('이메일 보내기 실패:', error);
     } else {
       res.json({ success: true });
       console.error('이메일 보내기 성공:', info.response);

@@ -1,0 +1,20 @@
+.mypage {
+  flex: 4;
+}
+
+.mypageTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mypagerenameButton {
+  width: 80px;
+  border: none;
+  padding: 5px;
+  background-color: gray;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+}

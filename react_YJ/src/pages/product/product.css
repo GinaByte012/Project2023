@@ -1,0 +1,31 @@
+.product {
+  flex: 4;
+}
+
+.productTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.productcorrectionButton {
+  width: 80px;
+  border: none;
+  padding: 5px;
+  background-color: gray;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+}
+
+.productdeleteButton {
+  width: 80px;
+  border: none;
+  padding: 5px;
+  background-color: red;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+}

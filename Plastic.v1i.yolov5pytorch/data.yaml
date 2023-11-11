@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 7
+names: ['1', '10', '11', '6', '7', '8', '9']
+
+roboflow:
+  workspace: gachonce-project
+  project: plastic-ap50l
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/gachonce-project/plastic-ap50l/dataset/1

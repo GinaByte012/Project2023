@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 16
+names: ['1', '10', '11', '12', '16', '17', '18', '19', '2', '20', '21', '3', '4', '5', '6', '9']
+
+roboflow:
+  workspace: gachonce-project
+  project: paper-nvctf
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/gachonce-project/paper-nvctf/dataset/2

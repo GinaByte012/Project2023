@@ -16,16 +16,19 @@ function Logout() {
       body: null
     }).then((res)=>{
       console.log("res", res); //response 확인
+      if (res.ok) {
+        console.log("response is okay.");
+        // 로그아웃 성공
+        // App의 props뭐시기 상태 ==> false 변경
+        setIsLoggedIn(!isLoggedIn);
+        navigate('/'); //로그인화면으로 redirect
+      } else {
+        console.log("response is not okay.failed");
+        alert('Logout failed');
+      }
       }
     );
-    if (response.ok) {
-      // 로그아웃 성공
-      // App의 props뭐시기 상태 ==> false 변경
-      setIsLoggedIn(!isLoggedIn);
-      navigate('/'); //로그인화면으로 redirect
-    } else {
-      alert('Logout failed');
-    }
+    
   // 서버로부터 로그아웃 동작 (fetch 사용~~)
   // 서버로부터 response
   // 로그아웃 성공

@@ -1,0 +1,51 @@
+.trashcanPage {
+    margin-top: 50px;
+}
+
+.manualPage {
+    margin-top: 50px;
+}
+
+.userlistPage {
+    margin-top: 50px;
+}
+
+.adminPage {
+    margin-top: 50px;
+}
+
+.NewAdminPage {
+    margin-top: 50px;
+}
+
+.NewTrashcanPage {
+    margin-top: 50px;
+}
+
+.NewManualPage {
+    margin-top: 50px;
+}
+
+.loginPage {
+    background-image: url('../public/background_img.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* min-height: 100vh; */
+}
+
+/* @font-face {
+    font-family: 'Dongle';
+    src: url('../public/Dongle-Regular.ttf') format('truetype')
+}
+
+.desc {
+    font-family: 'Dongle';
+    font-size: 20px;
+    font-weight: 100;
+} */
+
+
+.footer {
+    background-color: #eafae3;
+}
